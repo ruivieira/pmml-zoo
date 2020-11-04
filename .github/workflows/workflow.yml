@@ -1,0 +1,50 @@
+name: Tests
+
+on: [push]
+
+jobs:
+
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 1
+
+      - name: Set up Python 3.8.5
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8.5
+          architecture: x64
+
+      - name: Install Poetry
+        uses: dschep/install-poetry-action@v1.2
+
+      - name: Configure poetry
+        run: |
+          poetry config virtualenvs.create true
+          poetry config virtualenvs.in-project false
+          poetry config cache-dir ~/.poetry
+          poetry config virtualenvs.path ~/.poetry/venv
+
+      - name: Cache Poetry virtualenv
+        uses: actions/cache@v1
+        id: cache
+        with:
+          path: ~/.virtualenvs
+          key: poetry-${{ hashFiles('**/poetry.lock') }}
+          restore-keys: |
+            poetry-${{ hashFiles('**/poetry.lock') }}
+
+      - name: Install Dependencies
+        run: poetry install
+
+      - name: Lint
+        run: poetry run pylint $(find . -type f -name "*.py")
+
+      - name: Typings
+        run: poetry run mypy $(find . -type f -name "*.py")
+
+      - name: Formatting
+        run: poetry run black --check $(find . -type f -name "*.py")
