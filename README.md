@@ -1,4 +1,4 @@
-# pmml-zoo
+# pmml-zoo ![Tests](https://github.com/ruivieira/pmml-zoo/workflows/Tests/badge.svg)
 ![logo](docs/logo.png)
 
 A REST server to quickly create test PMML models.
@@ -13,8 +13,15 @@ A REST server to quickly create test PMML models.
 
 ## Usage
 
+The best way to get started is using `pmml-zoo` container image.
+
+```shell
+$ docker pull ruivieira/pmml-zoo:latest
+$ docker run -i --rm -p 5000:5000 ruivieira/pmml-zoo
+```
+
 As an example, let's create a linear regression.
-We can send the following JSON payload to `$SERVER/model/linearregression`:
+Assuming the server is running locally, we can send the following JSON payload to `0.0.0.0:5000/model/linearregression`:
 
 ```json
 {"data": {
@@ -61,5 +68,10 @@ After sending the above payload, a response consisting of the PMML's XML is retu
 
 For now, these are the supported models:
 
-- Linear regression
-- Random forest classification
+- Linear regression (`/model/linearregression`)
+- Random forest classification (`/model/randomforest`)
+
+## Contributing
+
+Please use the [issues](https://github.com/ruivieira/pmml-zoo/issues) for any suggestions, feedback, PRs or bugs.
+Thank you!
