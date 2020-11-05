@@ -33,11 +33,11 @@ curl --request POST \
     "inputs": [
         {"name": "feature-1",
          "type": "continuous",
-         "points": [[10.0, 30.0], [20.0, 40.0], [50, 15.0], [100, 16.0]]
+         "points": [[10.0, 20.0], [20.0, 40.0], [50, 35.0], [100, 16.0]]
         },
         {"name": "feature-2",
         "type": "discrete",
-        "points": [[0, 3], [2, 4], [8, 1], [9, 16]]
+        "points": [[0, 3.9], [2, 4.3], [8, 2.9], [9, 7.0]]
         },
         {"name": "feature-3",
         "type": "categorical",
@@ -58,6 +58,8 @@ curl --request POST \
 
 Data is simulated by first creating an empirical distribution by interpolating the provided `points`.
 This empirical distribution is then sampled `size` times and that will be the variable data.
+
+![plot](docs/plot.png)
 
 An important note is that all variables are independent (although spurious correlation may occur).
 
