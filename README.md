@@ -25,7 +25,7 @@ Assuming the server is running locally, we can send the following JSON payload t
 
 ```json
 curl --request POST \
-  --url http://0.0.0.0:5000/model/randomforest \
+  --url http://0.0.0.0:5000/model/linearregression \
   --header 'content-type: application/json' \
   --data '
 {"data": {
@@ -45,11 +45,11 @@ curl --request POST \
         }
         ],
         "outputs": [
-            {"name": "output-1",
-            "type": "categorical",
-            "points": [["low", 2.0], ["medium", 4.0], ["high", 1.0]]}
-            ]
-        }
+                    {"name": "feature-4",
+         "type": "continuous",
+         "points": [[1.0, 2.0], [4.0, 7.3], [7.0, 1.0], [100, 16.0]]
+        }]
+    }
 }' \
 -o model.pmml 
 ```
