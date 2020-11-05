@@ -1,12 +1,16 @@
 [tool.poetry]
-name = "python-template"
+name = "pmml-zoo"
 version = "0.1.0"
-description = "A Python project template"
+description = "PMML Zoo"
 authors = ["Rui Vieira <ruidevieira@googlemail.com>"]
 license = "AGPL3.0"
 
 [tool.poetry.dependencies]
 python = "^3.8"
+Flask = "^1.1.2"
+scikit-learn = "^0.23.2"
+pandas = "^1.1.4"
+nyoka = "^4.3.0"
 
 [tool.poetry.dev-dependencies]
 mypy = "*"
