@@ -59,6 +59,8 @@ curl --request POST \
 Data is simulated by first creating an empirical distribution by interpolating the provided `points`.
 This empirical distribution is then sampled `size` times and that will be the variable data.
 
+An important note is that all variables are independent (although spurious correlation may occur).
+
 A complete explanation is provided in the documentation.
 
 - `size` is the size of the dataset.
