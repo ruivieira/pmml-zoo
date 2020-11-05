@@ -24,6 +24,10 @@ As an example, let's create a linear regression.
 Assuming the server is running locally, we can send the following JSON payload to `0.0.0.0:5000/model/linearregression`:
 
 ```json
+curl --request POST \
+  --url http://0.0.0.0:5000/model/randomforest \
+  --header 'content-type: application/json' \
+  --data '
 {"data": {
     "size": 1000,
     "inputs": [
@@ -46,7 +50,8 @@ Assuming the server is running locally, we can send the following JSON payload t
             "points": [["low", 2.0], ["medium", 4.0], ["high", 1.0]]}
             ]
         }
-}
+}' \
+-o model.pmml 
 ```
 
 ### What is happening?
@@ -62,7 +67,7 @@ A complete explanation is provided in the documentation.
 - `type` can be one of `continuous`, `discrete` or `categorical`
 - `inputs` and `outputs` have the same format, with the obvious difference implied in the name.
 
-After sending the above payload, a response consisting of the PMML's XML is returned.
+After sending the above payload, a response consisting of the PMML's XML is returned, which is save (in this example) to the `model.pmml` file.
 
 ## Supported models
 
