@@ -9,7 +9,7 @@ import uuid
 import numpy as np  # type: ignore
 from scipy import interpolate  # type: ignore
 from flask import Flask, request, Response
-from flasgger import Swagger, swag_from
+from flasgger import Swagger, swag_from  # type: ignore
 import pandas as pd  # type: ignore
 from sklearn import preprocessing  # type: ignore
 from sklearn.linear_model import LinearRegression  # type: ignore
