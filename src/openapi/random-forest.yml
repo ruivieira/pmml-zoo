@@ -1,0 +1,94 @@
+Random forest model endpoint
+---
+requestBody:
+    description: Build a random forest PMML model
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: "#/definitions/Data"
+definitions:
+    ContinuousVariable:
+        type: object
+        properties:
+            name:
+                type: string
+                example: feature-continuous
+            type:
+                type: string
+                example: continuous
+            points:
+                type: array
+                items:
+                    type: array
+                    items:
+                        type: integer
+                        format: float32
+                    example: [[10.0, 20.0], [20.0, 40.0], [50, 35.0], [100, 16.0]]
+    DiscreteVariable:
+        type: object
+        properties:
+            name:
+                type: string
+                example: feature-discrete
+            type:
+                type: string
+                example: discrete
+            points:
+                type: array
+                items:
+                    type: array
+                    items:
+                        type: integer
+                        format: int32
+                    example: [[10.0, 20], [20.0, 40], [50, 35], [100, 16]]
+    CategoricalVariable:
+        type: object
+        properties:
+            name:
+                type: string
+                example: feature-categorical
+            type:
+                type: string
+                example: categorical
+            points:
+                type: array
+                items:
+                    type: array
+                    items:
+                        type: object
+                    example: [["low", 2.0], ["medium", 4.0], ["high", 1.0]]
+
+    Data:
+        type: object
+        properties:
+            size:
+                type: integer
+                format: int32
+                example: 100
+            inputs:
+                anyOf:
+                    - $ref: "#/definitions/ContinuousVariable"
+                    - $ref: "#/definitions/DiscreteVariable"
+                    - $ref: "#/definitions/CategoricalVariable"
+                example:
+                    - name: feature-1
+                      type: continuous
+                      points: [[10.0, 20.0], [20.0, 40.0], [50, 35.0], [100, 16.0]]
+                    - name: feature-2
+                      type: discrete
+                      points: [[0, 3.9], [2, 4.3], [8, 2.9], [9, 7.0]]
+                    - name: feature-3
+                      type: categorical
+                      points: [["low", 2.0], ["medium", 4.0], ["high", 1.0]]
+            outputs:
+                anyOf:
+                    - $ref: "#/definitions/CategoricalVariable"
+                example:
+                    - name: feature-4
+                      type: categorical
+                      points: [["1", 2.0], ["2", 7.3], ["3", 1.0], ["4", 16.0]]
+responses:
+  200:
+    description: A PMML model
+

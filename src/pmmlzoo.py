@@ -9,6 +9,7 @@ import uuid
 import numpy as np  # type: ignore
 from scipy import interpolate  # type: ignore
 from flask import Flask, request, Response
+from flasgger import Swagger, swag_from
 import pandas as pd  # type: ignore
 from sklearn import preprocessing  # type: ignore
 from sklearn.linear_model import LinearRegression  # type: ignore
@@ -227,22 +228,25 @@ def build_variable(json_str, data_size: int) -> TVariable:
 
 def parse_payload(payload: Any) -> Tuple[Inputs, Outputs]:
     """Parse JSON payload into inputs and outputs"""
-    data_size = int(payload["data"]["size"])
+    data_size = int(payload["size"])
     # get inputs
     inputs = []
-    for _input in payload["data"]["inputs"]:
+    for _input in payload["inputs"]:
         inputs.append(build_variable(_input, data_size))
     outputs = []
-    for _output in payload["data"]["outputs"]:
+    for _output in payload["outputs"]:
         outputs.append(build_variable(_output, data_size))
     return (inputs, outputs)
 
 
 # REST server
 app = Flask(__name__)
+app.config["SWAGGER"] = {"title": "pmml-zoo", "uiversion": 3, "openapi": "3.0.2"}
+swagger = Swagger(app)
 
 
-@app.route("/model/linearregression", methods=["POST"])
+@app.route("/model/linear-regression", methods=["POST"])
+@swag_from("openapi/linear-regression.yml")
 def linear_regression():
     """Linear regression model endpoint"""
     inputs, outputs = parse_payload(request.json)
@@ -251,7 +255,8 @@ def linear_regression():
     return Response(model, mimetype="text/xml")
 
 
-@app.route("/model/randomforest", methods=["POST"])
+@app.route("/model/random-forest", methods=["POST"])
+@swag_from("openapi/random-forest.yml")
 def random_forest():
     """Random forest model endpoint"""
     inputs, outputs = parse_payload(request.json)

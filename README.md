@@ -20,12 +20,14 @@ $ docker pull ruivieira/pmml-zoo:latest
 $ docker run -i --rm -p 5000:5000 ruivieira/pmml-zoo
 ```
 
+Assuming the server is running locally, the full REST API will be available at [http://0.0.0.0:5000/apidocs](http://0.0.0.0:5000/apidocs).
+
 As an example, let's create a linear regression.
-Assuming the server is running locally, we can send the following JSON payload to `0.0.0.0:5000/model/linearregression`:
+We can send the following JSON payload to `0.0.0.0:5000/model/linear-regression`:
 
 ```json
 curl --request POST \
-  --url http://0.0.0.0:5000/model/linearregression \
+  --url http://0.0.0.0:5000/model/linear-regression \
   --header 'content-type: application/json' \
   --data '
 {"data": {
