@@ -16,7 +16,7 @@ A REST server to quickly create test PMML models.
 The best way to get started is using `pmml-zoo` container image.
 
 ```shell
-$ docker pull ruivieira/pmml-zoo:latest
+$ docker pull ruivieira/pmml-zoo:0.0.1
 $ docker run -i --rm -p 5000:5000 ruivieira/pmml-zoo
 ```
 
